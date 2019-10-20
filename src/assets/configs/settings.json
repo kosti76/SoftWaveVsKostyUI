@@ -1,0 +1,19 @@
+
+{
+    "OAuthSettings":[{
+        "clientID": "f66ae71d-a041-49d6-9292-9f8cd685e095",
+        "tenant":"a785ac24-6d42-4a00-9bc8-5c70ce550cc1",
+        "validateAuthority": true,
+        "authority": "https://login.microsoftonline.com/a785ac24-6d42-4a00-9bc8-5c70ce550cc1/",
+        "cacheLocation": "localStorage",
+        "navigateToLoginRequestUrl": true,
+        "popUp": true,
+        "redirectUri": "http://localhost:4200/data",
+        "postLogoutRedirectUri": "http://localhost:4200/login",        
+        "isAngular": true,    
+        "piiLoggingEnabled": true,
+        "scope": "api://9bd180a1-9bd9-470d-ab71-10fe74c29078/api-access"            
+    }],    
+    "ApiUrl":"https://softwavwvskostyapi20191020010953.azurewebsites.net/api/getdata"      
+   
+}

@@ -1,0 +1,46 @@
+<div [formGroup]="form" style="background-color: black;">
+    <div class="container-fluid"   fxLayoutAlign="center" *ngIf="years">
+        <mat-form-field class="navbar-header" >
+            <mat-label style="color: #9d9d9d">{{selectYear}}</mat-label>
+            <!-- <mbsc-date  [(ngModel)]="dateInline" [options]="dateFormatSettings" ></mbsc-date> -->
+            <mat-select style="color: #9d9d9d" [(ngModel)]='selectedYear' formControlName="cboYears"
+                (selectionChange)="yearChanged($event)">
+                <mat-option style="color: #9d9d9d" *ngFor="let item of years" [value]="item.year">
+                    {{item.year}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div *ngIf="!years" style="background-color: black;color: #9d9d9d" fxLayout="row" fxLayoutAlign="center"
+        fxLayoutGap="0.5%" class="container navbar-brand">
+        Loading ...
+    </div>
+    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center"
+        *ngIf="selectedYearDetails">
+        <div fxFlex="25%" style="color: #9d9d9d">
+            <circle-progress id="circle1" [percent]="selectedYearDetails.circle1" [radius]="100" [outerStrokeWidth]="16"
+                [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+                [animationDuration]="300">
+            </circle-progress>
+        </div>
+        <div fxFlex="25%" style="color: #9d9d9d">
+            <circle-progress id="circle2" [percent]="selectedYearDetails.circle2" [radius]="100" [outerStrokeWidth]="16"
+                [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+                [animationDuration]="300">
+            </circle-progress>
+        </div>
+        <div fxFlex="50%" style="color: #9d9d9d">
+            <div style="padding: 10px">
+
+                <span *ngFor="let cat of selectedYearDetails.categories;let i = index" [attr.data-index]="i"
+                    class="p-progress-bar">
+                    {{cat.title}}
+                    <mat-progress-bar mode="determinate" [bufferValue]="100" [value]="cat.percent" [color]="[(color(cat.percent))]">
+                    </mat-progress-bar>
+
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>
