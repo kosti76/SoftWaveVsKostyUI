@@ -5,15 +5,60 @@
         <a class="navbar-brand" href="#">MSAL Angular Sample App</a>
       </div>
 
-      <ul class="nav navbar-nav">
-        <li><a [routerLink]="['demo']">Demo</a></li>
-      </ul>
+
       <ul class="nav navbar-nav navbar-right">
-        <li><a  *ngIf="!loggedIn"   (click)="login()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a  *ngIf="loggedIn" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        <li><a *ngIf="!loggedIn" (click)="login()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a *ngIf="loggedIn" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
+      
+      
     </div>
   </nav>
+  <div [formGroup]="form" >
+    <div fxLayoutAlign="center" *ngIf="years">
+      <mat-form-field>
+        <mat-label>Years</mat-label>
+        <!-- <mbsc-date  [(ngModel)]="dateInline" [options]="dateFormatSettings" ></mbsc-date> -->
+        <mat-select [(ngModel)]='selectedYear' formControlName="cboYears" (selectionChange)="yearChanged($event)" >
+          <mat-option *ngFor="let item of years" [value]="item.year">
+            {{item.year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="!years" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0.5%" >
+      Loading ...
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
+      fxLayoutAlign="center" *ngIf="selectedYearDetails">
+      <div fxFlex="25%">
+        <circle-progress id="circle1" [percent]="selectedYearDetails.circle1" [radius]="100" [outerStrokeWidth]="16"
+          [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+          [animationDuration]="300">
+        </circle-progress>
+      </div>
+      <div fxFlex="25%">
+        <circle-progress id="circle2" [percent]="selectedYearDetails.circle2" [radius]="100" [outerStrokeWidth]="16"
+          [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+          [animationDuration]="300">
+        </circle-progress>
+      </div>
+      <div fxFlex="50%">
+        <div style="padding: 10px">
+
+          <span *ngFor="let cat of selectedYearDetails.categories;let i = index" [attr.data-index]="i"
+            class="p-progress-bar navbar-brand">
+            {{cat.title}}
+            <mat-progress-bar mode="determinate" [bufferValue]="100" [value]="cat.percent"
+              [color]="[(color(cat.percent))]">
+            </mat-progress-bar>
+
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
   <!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
-<router-outlet *ngIf="!isIframe"  ></router-outlet>
+  <!-- <router-outlet *ngIf="!isIframe"></router-outlet> -->
 </div>
